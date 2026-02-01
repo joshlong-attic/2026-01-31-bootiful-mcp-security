@@ -2,8 +2,6 @@ package com.example.mcp_client;
 
 import io.modelcontextprotocol.client.McpSyncClient;
 import io.modelcontextprotocol.client.transport.customizer.McpSyncHttpClientRequestCustomizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springaicommunity.mcp.security.client.sync.AuthenticationMcpTransportContextProvider;
 import org.springaicommunity.mcp.security.client.sync.oauth2.http.client.OAuth2AuthorizationCodeSyncHttpRequestCustomizer;
 import org.springframework.ai.chat.client.ChatClient;
@@ -11,14 +9,10 @@ import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.mcp.customizer.McpSyncClientCustomizer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.time.Instant;
 import java.util.List;
 
-//@EnableWebSecurity
-@SpringBootApplication(
-//        exclude = {UserDetailsServiceAutoConfiguration.class}
-)
+@SpringBootApplication
 public class McpClientApplication {
 
     public static void main(String[] args) {
@@ -43,7 +34,6 @@ public class McpClientApplication {
         return http
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .oauth2Client(Customizer.withDefaults())
-//                .csrf(CsrfConfigurer::disable)
                 .build();
     }
 
@@ -64,7 +54,6 @@ public class McpClientApplication {
 class McpClientController {
 
     private final ChatClient ai;
-
 
     private final SyncMcpToolCallbackProvider toolCallbackProvider;
 
