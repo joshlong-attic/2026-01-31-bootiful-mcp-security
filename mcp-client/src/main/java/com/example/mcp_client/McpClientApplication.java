@@ -27,9 +27,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.time.Instant;
 import java.util.List;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 @SpringBootApplication(
-        exclude = {UserDetailsServiceAutoConfiguration.class})
+//        exclude = {UserDetailsServiceAutoConfiguration.class}
+)
 public class McpClientApplication {
 
     public static void main(String[] args) {
@@ -42,7 +43,7 @@ public class McpClientApplication {
         return http
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .oauth2Client(Customizer.withDefaults())
-                .csrf(CsrfConfigurer::disable)
+//                .csrf(CsrfConfigurer::disable)
                 .build();
     }
 
