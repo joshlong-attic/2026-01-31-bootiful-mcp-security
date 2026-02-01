@@ -38,12 +38,12 @@ public class McpClientApplication {
     }
 
     @Bean
-    McpSyncHttpClientRequestCustomizer requestCustomizer(OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
+    McpSyncHttpClientRequestCustomizer mcpSyncHttpClientRequestCustomizer(OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager) {
         return new OAuth2AuthorizationCodeSyncHttpRequestCustomizer(oAuth2AuthorizedClientManager, "authserver");
     }
 
     @Bean
-    McpSyncClientCustomizer syncClientCustomizer() {
+    McpSyncClientCustomizer mcpSyncClientCustomizer() {
         return (name, syncSpec) -> syncSpec
                 .transportContextProvider(new AuthenticationMcpTransportContextProvider());
     }
